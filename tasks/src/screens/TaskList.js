@@ -8,9 +8,9 @@ import {  SafeAreaView,
     TouchableOpacity,
     Platform,
     Alert,LogBox} from 'react-native'
-
 import AsyncStorage from '@react-native-community/async-storage'
-
+import {server,showError} from '../common'
+import axios from 'axios'
 import TodayImage from '../../assets/imgs/today.jpg'
 import moment from 'moment'
 import commonStyles from '../commonStyles'
@@ -37,10 +37,20 @@ export default class TaskList extends Component{
     }
     componentDidMount = async () => { 
         const stateString= await AsyncStorage.getItem('tasksState')
-        const state=JSON.parse(stateString)||initialState
-        this.setState(state,this.filterTasks)
+        const savedState=JSON.parse(stateString)||initialState
+        this.setState({showDoneTasks:savedState.showDoneTasks},this.filterTasks)
+        this.loadTasks()
         }
 
+    loadTasks = async () => {
+        try{
+            const maxDate = moment().format('YYYY-MM-DD 23:59:59')
+            const res = await axios.get(`${server}/tasks?date=${maxDate}`)
+            this.setState({tasks:res.data},this.filterTasks)
+        }catch(e){
+            showError(e)
+        }
+    }
     filterTasks=()=>{
         let visibleTasks = null
         if(this.state.showDoneTasks){
@@ -50,7 +60,10 @@ export default class TaskList extends Component{
             visibleTasks=this.state.tasks.filter(pending)
         }
         this.setState({visibleTasks})
-        AsyncStorage.setItem('tasksState',JSON.stringify(this.state))
+        AsyncStorage.setItem('tasksState',JSON.stringify(
+            {
+            showDoneTasks:this.state.showDoneTasks
+            }))
     }
 
     addTask = newTask=>{
