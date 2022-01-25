@@ -3,13 +3,11 @@ import { ImageBackground,
     Text,
     StyleSheet,
     View,
-    TextInput,
     TouchableOpacity,
-    Platform,
     Alert } from 'react-native'
 import backgroundImage from '../../assets/imgs/login.jpg'
 import commonStyles from '../commonStyles'
-
+import AuthInput from '../components/AuthInput'
 export default class App extends Component{
 
     state ={
@@ -17,7 +15,7 @@ export default class App extends Component{
         email:'',
         password:'',
         confirmPassword:'',
-        stageNew:false
+        stageNew:true
     }
     signinOrSignup = () => {
         if(this.state.stageNew){
@@ -35,25 +33,29 @@ export default class App extends Component{
                 {this.state.stageNew?'Crie a sua conta':'Informe seus dados'}
             </Text>
             {this.state.stageNew&&
-            <TextInput 
+            <AuthInput 
+            icon='user'
             placeholder='Nome' 
             value={this.state.name}
             style={styles.input}
             onChangeText={name=>this.setState({name})}/>
             }
-            <TextInput 
+            <AuthInput 
+            icon='at'
             placeholder='E-mail' 
             value={this.state.email}
             style={styles.input}
             onChangeText={email=>this.setState({email})}/>
-            <TextInput 
+            <AuthInput 
+            icon='lock'
             placeholder='Senha' 
             value={this.state.password}
             style={styles.input}
             secureTextEntry
             onChangeText={password=>this.setState({password})}/>
             {this.state.stageNew&&
-            <TextInput 
+            <AuthInput
+            icon='asterisk' 
             placeholder='Confirmacao de senha' 
             value={this.state.confirmPassword}
             style={styles.input}
@@ -99,13 +101,13 @@ const styles = StyleSheet.create({
     input:{
         marginTop:10,
         backgroundColor:'#FFF',
-        padding:Platform.OS == 'ios'? 15:10
     },
     button:{
         backgroundColor:'#080',
         marginTop:10,
         padding:10,
         alignItems:'center',
+        borderRadius:7,
     },
     buttonText:{
         fontFamily:commonStyles.fontFamily,
