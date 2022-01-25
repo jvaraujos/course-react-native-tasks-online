@@ -12,8 +12,11 @@ import commonStyles from '../commonStyles'
 export default class App extends Component{
 
     state ={
+        name:'',
         email:'',
         password:'',
+        confirmPassword:'',
+        stageNew:true
     }
 
     render (){
@@ -21,6 +24,16 @@ export default class App extends Component{
         <ImageBackground style={styles.background} source={backgroundImage}>
         <Text style={styles.title}>Tasks</Text>
         <View style={styles.formContainer}>
+            <Text style={styles.subtitle}>
+                {this.state.stageNew?'Crie a sua conta':'Informe seus dados'}
+            </Text>
+            {this.state.stageNew&&
+            <TextInput 
+            placeholder='Nome' 
+            value={this.state.name}
+            style={styles.input}
+            onChangeText={name=>this.setState({name})}/>
+            }
             <TextInput 
             placeholder='E-mail' 
             value={this.state.email}
@@ -30,10 +43,21 @@ export default class App extends Component{
             placeholder='Senha' 
             value={this.state.password}
             style={styles.input}
+            secureTextEntry
             onChangeText={password=>this.setState({password})}/>
+            {this.state.stageNew&&
+            <TextInput 
+            placeholder='Confirmacao de senha' 
+            value={this.state.confirmPassword}
+            style={styles.input}
+            secureTextEntry
+            onChangeText={confirmPassword=>this.setState({confirmPassword})}/>
+            }
             <TouchableOpacity>
                 <View style={styles.button}>
-                    <Text style={styles.buttonText}>Entrar</Text>
+                    <Text style={styles.buttonText}>
+                        {this.state.stageNew?'Registrar':'Entrar'}
+                        </Text>
                 </View>
             </TouchableOpacity>
         </View>
@@ -74,5 +98,12 @@ const styles = StyleSheet.create({
         fontFamily:commonStyles.fontFamily,
         color:'#FFF',
         fontSize:20
+    },
+    subtitle:{
+        fontFamily:commonStyles.fontFamily,
+        fontSize:20,
+        color:'#FFF',
+        textAlign:'center',
+        marginBottom:10,
     }
     })
