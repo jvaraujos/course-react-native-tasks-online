@@ -16,7 +16,7 @@ const initialState = {
     email:'',
     password:'',
     confirmPassword:'',
-    stageNew:true,
+    stageNew:false,
 }
 
 export default class App extends Component{
@@ -24,12 +24,11 @@ export default class App extends Component{
     state ={
         ...initialState
     }
-
     signinOrSignup = () => {
         if(this.state.stageNew){
             this.signUp()
         }else{
-            Alert.alert('Sucesso!','Logar')
+            this.singIn()
         }
     }
 
@@ -41,11 +40,24 @@ export default class App extends Component{
                 password:this.state.password,
                 confirmPassword:this.state.confirmPassword,
             })
-
             showSucess('Usuario Cadastrado!')
             this.setState({...initialState})
         }catch(e){
             showError(e)
+        }
+    }
+    singIn = async () => {
+        try{
+            const res =await axios.post(`${server}/signin`,{
+                email:this.state.email,
+                password:this.state.password,
+            })
+
+            axios.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
+
+            this.props.navigation.navigate('Home',res.data)
+        }catch(e){
+
         }
     }
 
