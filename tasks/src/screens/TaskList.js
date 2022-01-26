@@ -118,7 +118,7 @@ export default class TaskList extends Component{
                 </TouchableOpacity>
             </View>
             <View style={styles.titleBar}>
-                <Text style={styles.title}>Hoje</Text>
+                <Text style={styles.title}>{this.props.title}</Text>
                 <Text>{today}</Text>
             </View>
             </ImageBackground>       
