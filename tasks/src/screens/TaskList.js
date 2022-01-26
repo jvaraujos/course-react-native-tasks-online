@@ -44,7 +44,7 @@ export default class TaskList extends Component{
 
     loadTasks = async () => {
         try{
-            const maxDate = moment().format('YYYY-MM-DD 23:59:59')
+            const maxDate = moment().add({days:this.props.daysAhead}).format('YYYY-MM-DD 23:59:59')
             const res = await axios.get(`${server}/tasks?date=${maxDate}`)
             this.setState({tasks:res.data},this.filterTasks)
         }catch(e){
@@ -113,13 +113,16 @@ export default class TaskList extends Component{
         onSave={this.addTask}/>
         <ImageBackground source={TodayImage} style={styles.image}>
             <View style={styles.iconBar}>
+            <TouchableOpacity onPress={()=>this.props.navigation.openDrawer()}>
+                <Icon name='bars' size={20} color={commonStyles.colors.secondary}/>
+                </TouchableOpacity>
                 <TouchableOpacity onPress={this.toggleFilter}>
                 <Icon name={this.state.showDoneTasks?'eye':'eye-slash'} size={20} color={commonStyles.colors.secondary}/>
                 </TouchableOpacity>
             </View>
             <View style={styles.titleBar}>
                 <Text style={styles.title}>{this.props.title}</Text>
-                <Text>{today}</Text>
+                <Text style={styles.subtitle}>{today}</Text>
             </View>
             </ImageBackground>       
         <View style={styles.taskList}>
@@ -155,11 +158,18 @@ const styles = StyleSheet.create({
          color:commonStyles.colors.secondary,
          marginLeft:20,
          marginBottom:20         
-     },
+     }, 
+     subtitle: {
+        fontFamily: commonStyles.fontFamily,
+        color: commonStyles.colors.secondary,
+        fontSize: 20,
+        marginLeft: 20,
+        marginBottom: 30
+    },
      iconBar :{
         flexDirection:'row',
         marginHorizontal:20,
-        justifyContent:'flex-end',
+        justifyContent:'space-between',
         marginTop:Platform.OS==='ios'?30:10
      },
      addButton :{
