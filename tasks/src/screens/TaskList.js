@@ -151,7 +151,8 @@ export default class TaskList extends Component{
             <Task {...item} onToggleTask={this.toggleTask} onDelete={this.deleteTask}/>}/>
         </View>
         <TouchableOpacity style={[styles.addButton,
-            {backgroundColor: this.getColor()}]} onPress={()=> this.setState({showAddTask:true})} activeOpacity={0.7}>
+            {backgroundColor: this.getColor()}]} 
+            onPress={()=> this.setState({showAddTask:true})} activeOpacity={0.7}>
             <Icon name='plus' size={20} color={commonStyles.colors.secondary}></Icon>
         </TouchableOpacity>
         </SafeAreaView>
