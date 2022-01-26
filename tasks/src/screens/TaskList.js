@@ -7,7 +7,7 @@ import {  SafeAreaView,
     FlatList,
     TouchableOpacity,
     Platform,
-    Alert,LogBox} from 'react-native'
+    Alert} from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import {server,showError} from '../common'
 import axios from 'axios'
@@ -22,9 +22,6 @@ import Task from '../components/Task'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AddTask from './AddTask'
 
-LogBox.ignoreLogs([
-  "[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!",
-]);
 
 const initialState={
     showDoneTasks:false,
