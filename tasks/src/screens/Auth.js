@@ -75,6 +75,7 @@ export default class App extends Component{
 
 
         return (
+        
         <ImageBackground style={styles.background} source={backgroundImage}>
         <Text style={styles.title}>Tasks</Text>
         <View style={styles.formContainer}>
