@@ -16,7 +16,7 @@ export default props => {
       component={props => <TaskList title='Semana' daysAhead={7} {...props}/>}   
       options={{ headerShown: false }}/>
          <Drawer.Screen name="Month" 
-      component={props => <TaskList title='Month' daysAhead={30} {...props}/>}   
+      component={props => <TaskList title='Mes' daysAhead={30} {...props}/>}   
       options={{ headerShown: false }}/>
     </Drawer.Navigator>
   );
