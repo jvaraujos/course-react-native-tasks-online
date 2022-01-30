@@ -21,7 +21,7 @@ const menuConfig = {
   activeTintColor: '#080',
   headerShown: false,
 }
-
+//Oi Franciele
 const DrawerNavigator = props => {
   const { email, name } = props.route.params
   return (
