@@ -22,6 +22,7 @@ const menuConfig = {
   headerShown: false,
 }
 //Oi Franciele
+//oi joaovitor
 const DrawerNavigator = props => {
   const { email, name } = props.route.params
   return (
